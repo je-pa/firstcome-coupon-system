@@ -29,7 +29,7 @@ public class ApplyService {
 
 ### 문제점 알아보기
 위의 코드에서의 문제점은 멀티 스레드 환경에서 나타난다.
-- [ApiApplicationTests 코드 바로가기](/api/src/test/java/com/example/api/service/ApiApplicationTests.java)
+- [ApiApplicationTests 코드 바로가기](/api/src/test/java/com/example/api/service/ApplyServiceTest.java)
 
 -  문제점: 100개만 생성되는 것을 기대했지만 멀티 스레드 환경에서는 생각처럼 되지않음.
 - 이유: 멀티 스레드 환경에서는 **레이스 컨디션**이 발생하기 때문에
