@@ -13,9 +13,8 @@ public class ApplyWithIncrService {
   private final CouponCountRepository couponCountRepository;
 
   public void apply(Long userId) {
-//    long count = couponRepository.count();
     Long count = couponCountRepository.increment();
-    
+
     if(count > 100){
       return;
     }

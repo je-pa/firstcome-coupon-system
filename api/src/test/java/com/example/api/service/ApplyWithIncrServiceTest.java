@@ -1,7 +1,6 @@
 package com.example.api.service;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.*;
 
 import com.example.api.repository.CouponRepository;
 import java.util.concurrent.CountDownLatch;
