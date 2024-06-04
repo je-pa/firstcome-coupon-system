@@ -441,6 +441,25 @@ sadd {key} {value}
 
 ### service에서 사용
 [ApplyWithSetService.java](api/src/main/java/com/example/api/service/ApplyWithSetService.java)
+---
 
+# 쿠폰 발급 중 에러가 발생한다면?
+현재는 만약 consumer에서 데이터를 가져간 후 쿠폰 발급 중 에러가 발생한다면  
 
+쿠폰은 발급되지 않고 발급된 쿠폰 개수만 올라가는 문제가 발생할 수 있다.
+
+즉, 제한 개수보다(100개보다) 적은 수량의 쿠폰이 발급될 수 있다.
+
+이런 상황을 위해 백업 데이터와 로그를 남기도록 해보자.
+
+> **api -> topic <- consumer -> FailedEvent <- 배치 프로그램**
+> 
+> 컨슈머가 토픽에 있는 데이터를 가져와 쿠폰 발급을 하다 에러가 발생하면 Failed Event에 저장하고,
+> 
+> 이후 배치 프로그램에서 failed event에 쌓인 데이터들을 주기적으로 읽어서 쿠폰 발급 해주면 100개의 쿠폰이 모두 발급 될 것이다. 
+
+- Consumer에서 예외가 발생한다면 로그를 저장하는 로직을 추가하자
+  - [CouponCreatedConsumer](consumer/src/main/java/com/zerobase/consumer/consumer/CouponCreatedConsumer.java)
+  - [FailedEvent](consumer/src/main/java/com/zerobase/consumer/domain/FailedEvent.java)
+  - [FailedEventRepository](consumer/src/main/java/com/zerobase/consumer/repository/FailedEventRepository.java)
 
